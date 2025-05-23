@@ -49,12 +49,15 @@ function generateContent() {
       const downloadBtn = document.createElement("button");
       downloadBtn.textContent = "Download Image";
       downloadBtn.style.marginTop = "10px";
+       downloadBtn.style.backgroundcolr = "green";
+
+      
 
       // Handle download on click
       downloadBtn.onclick = () => {
         const a = document.createElement('a');
         a.href = croppedDataURL;
-        a.download = 'cropped-image.jpg';
+        a.download = 'image.jpg';
         a.click();
       };
 
