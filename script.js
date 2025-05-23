@@ -188,7 +188,6 @@ htmlBtn.onclick = async () => {
     resultDiv.appendChild(croppedImg);
     resultDiv.appendChild(downloadBtn);
     resultDiv.appendChild(copyBtn);
-    resultDiv.appendChild(htmlBtn);
 
 
     document.getElementById("btnText").textContent = "Create Image";
