@@ -143,10 +143,10 @@ codeBtn.onmouseleave = () => {
   codeBtn.style.backgroundColor = "#f59e0b";
 };
 
-codeBtn.onclick = () => {
-  const htmlCode = `<img src="${croppedImg.src}" alt="Generated Image" class="rounded shadow-md" />`;
-  const cssCode = `.rounded {\n  border-radius: 0.5rem;\n}\n.shadow-md {\n  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n}`;
-  
+
+  codeBtn.onclick = () => {
+  const htmlCode = `<img src="${croppedImg.src}" alt="Generated Image" class="rounded shadow-md cursor-pointer" />`;
+
   const codeContainer = document.createElement("div");
   codeContainer.style.marginTop = "15px";
 
@@ -157,19 +157,9 @@ codeBtn.onclick = () => {
   htmlBlock.style.borderRadius = "8px";
   htmlBlock.style.overflowX = "auto";
 
-  const cssBlock = document.createElement("pre");
-  cssBlock.innerHTML = `<code>${cssCode}</code>`;
-  cssBlock.style.background = "#f3f4f6";
-  cssBlock.style.padding = "10px";
-  cssBlock.style.borderRadius = "8px";
-  cssBlock.style.overflowX = "auto";
-  cssBlock.style.marginTop = "10px";
-
   codeContainer.appendChild(htmlBlock);
-  codeContainer.appendChild(cssBlock);
   resultDiv.appendChild(codeContainer);
 };
-
 
 
     resultDiv.innerHTML = '';
