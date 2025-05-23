@@ -25,7 +25,7 @@ function generateContent() {
   } else if (mode === 'image') {
     const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(userInput)}`;
     const img = new Image();
-    img.crossOrigin = "anonymous"; // Required to draw image to canvas from external source
+    img.crossOrigin = "anonymous"; // Allow loading from external source
     img.src = imgUrl;
 
     img.onload = function () {
@@ -33,14 +33,18 @@ function generateContent() {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
+      const croppedHeight = img.height * (1 - cropPercent);
+
       canvas.width = img.width;
-      canvas.height = img.height * (1 - cropPercent);
+      canvas.height = croppedHeight;
 
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, img.width, croppedHeight);
 
+      // Convert canvas to image
       const croppedImg = new Image();
       croppedImg.src = canvas.toDataURL("image/jpeg");
 
+      // Clear result area and display cropped image
       resultDiv.innerHTML = '';
       resultDiv.appendChild(croppedImg);
     };
@@ -50,4 +54,3 @@ function generateContent() {
     };
   }
 }
-
