@@ -46,12 +46,32 @@ function generateContent() {
       croppedImg.src = croppedDataURL;
 
       // Create download button
-      const downloadBtn = document.createElement("button");
-      downloadBtn.textContent = "Download Image";
-      downloadBtn.style.marginTop = "10px";
-       downloadBtn.style.backgroundcolr = "green";
+      // Create download button
+const downloadBtn = document.createElement("button");
+downloadBtn.textContent = "Download Image";
 
-      
+// Style the button beautifully
+downloadBtn.style.backgroundColor = "#4f46e5";       // Indigo-600
+downloadBtn.style.color = "#ffffff";
+downloadBtn.style.padding = "10px 20px";
+downloadBtn.style.border = "none";
+downloadBtn.style.borderRadius = "8px";
+downloadBtn.style.cursor = "pointer";
+downloadBtn.style.fontSize = "16px";
+downloadBtn.style.fontWeight = "600";
+downloadBtn.style.marginTop = "15px";
+downloadBtn.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+downloadBtn.style.transition = "background-color 0.3s ease";
+
+// Hover effect
+downloadBtn.onmouseover = () => {
+  downloadBtn.style.backgroundColor = "#4338ca"; // Indigo-700
+};
+
+downloadBtn.onmouseleave = () => {
+  downloadBtn.style.backgroundColor = "#4f46e5"; // Reset to Indigo-600
+};
+
 
       // Handle download on click
       downloadBtn.onclick = () => {
