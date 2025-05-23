@@ -9,7 +9,7 @@ function generateContent() {
   }
 
   // Show processing state on button
-  generateBtn.textContent = "Processing...";
+  document.getElementById("btnText").textContent = "Processing...";
   generateBtn.disabled = true;
   generateBtn.style.opacity = "0.6";
   generateBtn.style.cursor = "not-allowed";
@@ -73,7 +73,7 @@ function generateContent() {
     resultDiv.appendChild(downloadBtn);
 
     // Reset the generate button
-    generateBtn.textContent = "Generate";
+document.getElementById("btnText").textContent = "Generate";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
