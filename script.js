@@ -80,10 +80,51 @@ function generateContent() {
       a.download = 'image.jpg';
       a.click();
     };
+    const copyBtn = document.createElement("button");
+copyBtn.textContent = "Copy to Clipboard";
+Object.assign(copyBtn.style, {
+  backgroundColor: "#10b981", // Tailwind's emerald-500
+  color: "#fff",
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  fontSize: "16px",
+  fontWeight: "600",
+  marginTop: "10px",
+  marginLeft: "10px",
+  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  transition: "background-color 0.3s ease"
+});
+
+copyBtn.onmouseover = () => {
+  copyBtn.style.backgroundColor = "#059669"; // emerald-600
+};
+copyBtn.onmouseleave = () => {
+  copyBtn.style.backgroundColor = "#10b981";
+};
+
+copyBtn.onclick = async () => {
+  try {
+    const res = await fetch(croppedImg.src);
+    const blob = await res.blob();
+    await navigator.clipboard.write([
+      new ClipboardItem({ [blob.type]: blob })
+    ]);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => {
+      copyBtn.textContent = "Copy to Clipboard";
+    }, 2000);
+  } catch (err) {
+    alert("Failed to copy image: " + err);
+  }
+};
+
 
     resultDiv.innerHTML = '';
     resultDiv.appendChild(croppedImg);
     resultDiv.appendChild(downloadBtn);
+resultDiv.appendChild(copyBtn);
 
     document.getElementById("btnText").textContent = "Create Image";
     generateBtn.disabled = false;
