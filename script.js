@@ -119,54 +119,17 @@ copyBtn.onclick = async () => {
     alert("Failed to copy image: " + err);
   }
 };
-    const codeBtn = document.createElement("button");
-codeBtn.textContent = "Show HTML/CSS Code";
-Object.assign(codeBtn.style, {
-  backgroundColor: "#f59e0b", // amber-500
-  color: "#fff",
-  padding: "10px 20px",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  fontSize: "16px",
-  fontWeight: "600",
-  marginTop: "10px",
-  marginLeft: "10px",
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  transition: "background-color 0.3s ease"
-});
 
-codeBtn.onmouseover = () => {
-  codeBtn.style.backgroundColor = "#d97706"; // amber-600
-};
-codeBtn.onmouseleave = () => {
-  codeBtn.style.backgroundColor = "#f59e0b";
-};
+ 
 
 
-  codeBtn.onclick = () => {
-  const htmlCode = `<img src="${croppedImg.src}" alt="Generated Image" class="rounded shadow-md cursor-pointer" />`;
 
-  const codeContainer = document.createElement("div");
-  codeContainer.style.marginTop = "15px";
-
-  const htmlBlock = document.createElement("pre");
-  htmlBlock.innerHTML = `<code>${htmlCode.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code>`;
-  htmlBlock.style.background = "#f3f4f6"; // Tailwind gray-100
-  htmlBlock.style.padding = "10px";
-  htmlBlock.style.borderRadius = "8px";
-  htmlBlock.style.overflowX = "auto";
-
-  codeContainer.appendChild(htmlBlock);
-  resultDiv.appendChild(codeContainer);
-};
 
 
     resultDiv.innerHTML = '';
     resultDiv.appendChild(croppedImg);
     resultDiv.appendChild(downloadBtn);
 resultDiv.appendChild(copyBtn);
-    resultDiv.appendChild(codeBtn);
 
 
     document.getElementById("btnText").textContent = "Create Image";
