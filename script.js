@@ -44,7 +44,9 @@ function generateContent() {
 
     // 👉 Open modal on image click
     croppedImg.onclick = () => {
+        currentZoom = 1; // Reset zoom when modal opens
       document.getElementById("modalImage").src = croppedDataURL;
+        modalImage.style.transform = `scale(${currentZoom})`;
       document.getElementById("imageModal").classList.remove("hidden");
     };
 
@@ -97,3 +99,17 @@ function generateContent() {
     generateBtn.style.cursor = "pointer";
   };
 }
+let currentZoom = 1;
+const modalImage = document.getElementById("modalImage");
+
+document.getElementById("zoomIn").addEventListener("click", () => {
+  currentZoom += 0.1;
+  modalImage.style.transform = `scale(${currentZoom})`;
+});
+
+document.getElementById("zoomOut").addEventListener("click", () => {
+  if (currentZoom > 0.2) {
+    currentZoom -= 0.1;
+    modalImage.style.transform = `scale(${currentZoom})`;
+  }
+});
