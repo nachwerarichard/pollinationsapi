@@ -119,6 +119,64 @@ copyBtn.onclick = async () => {
     alert("Failed to copy image: " + err);
   }
 };
+const htmlBtn = document.createElement("button");
+htmlBtn.textContent = "Generate HTML";
+Object.assign(htmlBtn.style, {
+  backgroundColor: "#f59e0b", // Tailwind's amber-500
+  color: "#fff",
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  fontSize: "16px",
+  fontWeight: "600",
+  marginTop: "10px",
+  marginLeft: "10px",
+  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  transition: "background-color 0.3s ease"
+});
+
+htmlBtn.onmouseover = () => {
+  htmlBtn.style.backgroundColor = "#d97706"; // amber-600
+};
+htmlBtn.onmouseleave = () => {
+  htmlBtn.style.backgroundColor = "#f59e0b";
+};
+htmlBtn.onclick = async () => {
+  try {
+    htmlBtn.textContent = "Generating...";
+    htmlBtn.disabled = true;
+
+    const blob = await fetch(croppedImg.src).then(res => res.blob());
+    const formData = new FormData();
+    formData.append("email", "nachwerarichard@gmail.com"); // replace with your email
+    formData.append("api_key", "ae111f741e9f356d1726d33c1014188a"); // replace with your actual key
+    formData.append("file", blob, "image.png");
+
+    const response = await fetch("https://api.img2html.com/api/generate-html", {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (result.status === "success") {
+      const pre = document.createElement("pre");
+      pre.textContent = result.html;
+      pre.className = "bg-gray-100 p-4 overflow-auto text-sm mt-4 rounded border";
+
+      resultDiv.appendChild(pre);
+    } else {
+      alert("Failed to generate HTML.");
+    }
+
+  } catch (error) {
+    alert("Error: " + error.message);
+  } finally {
+    htmlBtn.textContent = "Generate HTML";
+    htmlBtn.disabled = false;
+  }
+};
 
  
 
@@ -129,7 +187,8 @@ copyBtn.onclick = async () => {
     resultDiv.innerHTML = '';
     resultDiv.appendChild(croppedImg);
     resultDiv.appendChild(downloadBtn);
-resultDiv.appendChild(copyBtn);
+    resultDiv.appendChild(copyBtn);
+    resultDiv.appendChild(htmlBtn);
 
 
     document.getElementById("btnText").textContent = "Create Image";
