@@ -1,14 +1,18 @@
+// Add this outside of generateContent() to avoid duplicate listeners
+document.getElementById("closeModal").addEventListener("click", () => {
+  document.getElementById("imageModal").classList.add("hidden");
+});
+
 function generateContent() {
   const userInput = document.getElementById('userInput').value.trim();
   const resultDiv = document.getElementById('result');
   const generateBtn = document.getElementById('generateBtn');
 
   if (!userInput) {
-    resultDiv.innerHTML = '<p>Please enter a prompt.</p>';
+    resultDiv.innerHTML = '<p class="text-red-500">Please enter a prompt.</p>';
     return;
   }
 
-  // Show processing state on button
   document.getElementById("btnText").textContent = "Processing...";
   generateBtn.disabled = true;
   generateBtn.style.opacity = "0.6";
@@ -31,36 +35,41 @@ function generateContent() {
 
     canvas.width = img.width;
     canvas.height = cropHeight;
-
     ctx.drawImage(img, 0, 0, img.width, cropHeight, 0, 0, img.width, cropHeight);
 
     const croppedDataURL = canvas.toDataURL("image/jpeg");
-
     const croppedImg = new Image();
     croppedImg.src = croppedDataURL;
+    croppedImg.classList.add("cursor-pointer", "rounded", "shadow-md");
+
+    // 👉 Open modal on image click
+    croppedImg.onclick = () => {
+      document.getElementById("modalImage").src = croppedDataURL;
+      document.getElementById("imageModal").classList.remove("hidden");
+    };
 
     const downloadBtn = document.createElement("button");
     downloadBtn.textContent = "Download Image";
-    downloadBtn.style.backgroundColor = "#4f46e5";
-    downloadBtn.style.color = "#ffffff";
-    downloadBtn.style.padding = "10px 20px";
-    downloadBtn.style.border = "none";
-    downloadBtn.style.borderRadius = "8px";
-    downloadBtn.style.cursor = "pointer";
-    downloadBtn.style.fontSize = "16px";
-    downloadBtn.style.fontWeight = "600";
-    downloadBtn.style.marginTop = "15px";
-    downloadBtn.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
-    downloadBtn.style.transition = "background-color 0.3s ease";
+    Object.assign(downloadBtn.style, {
+      backgroundColor: "#4f46e5",
+      color: "#fff",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontSize: "16px",
+      fontWeight: "600",
+      marginTop: "15px",
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      transition: "background-color 0.3s ease"
+    });
 
     downloadBtn.onmouseover = () => {
       downloadBtn.style.backgroundColor = "#4338ca";
     };
-
     downloadBtn.onmouseleave = () => {
       downloadBtn.style.backgroundColor = "#4f46e5";
     };
-
     downloadBtn.onclick = () => {
       const a = document.createElement('a');
       a.href = croppedDataURL;
@@ -72,27 +81,19 @@ function generateContent() {
     resultDiv.appendChild(croppedImg);
     resultDiv.appendChild(downloadBtn);
 
-    // Reset the generate button
-document.getElementById("btnText").textContent = "Create Image";
+    document.getElementById("btnText").textContent = "Create Image";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
-    resultDiv.innerHTML = '';
-resultDiv.appendChild(croppedImg);
-resultDiv.appendChild(downloadBtn);
-
-document.getElementById("spinner").classList.add("hidden");
-
-
+    document.getElementById("spinner").classList.add("hidden");
   };
 
   img.onerror = function () {
     document.getElementById("spinner").classList.add("hidden");
-    resultDiv.innerHTML = "<p>Error loading image.</p>";
-    generateBtn.textContent = "Generate Image";
+    resultDiv.innerHTML = "<p class='text-red-500'>Error loading image.</p>";
+    document.getElementById("btnText").textContent = "Create Image";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
-    
   };
 }
