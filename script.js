@@ -8,7 +8,7 @@ function generateContent() {
     return;
   }
 
-  resultDiv.innerHTML = '<p>Generating...</p>';
+  resultDiv.innerHTML = '<p>Generating please wait...</p>';
 
   if (mode === 'text') {
     const apiUrl = `https://text.pollinations.ai/${encodeURIComponent(userInput)}`;
@@ -29,7 +29,7 @@ function generateContent() {
     img.src = imgUrl;
 
     img.onload = function () {
-      const cropPercent = 0.07; // Crop bottom 10%
+      const cropPercent = 0.1;
       const cropHeight = img.height * (1 - cropPercent);
 
       const canvas = document.createElement("canvas");
@@ -38,20 +38,30 @@ function generateContent() {
       canvas.width = img.width;
       canvas.height = cropHeight;
 
-      // Draw only the top 90% of the original image
-      ctx.drawImage(
-        img,
-        0, 0,                   // Source X, Y
-        img.width, cropHeight,  // Source Width, Height to draw
-        0, 0,                   // Destination X, Y
-        img.width, cropHeight   // Destination Width, Height
-      );
+      ctx.drawImage(img, 0, 0, img.width, cropHeight, 0, 0, img.width, cropHeight);
+
+      const croppedDataURL = canvas.toDataURL("image/jpeg");
 
       const croppedImg = new Image();
-      croppedImg.src = canvas.toDataURL("image/jpeg");
+      croppedImg.src = croppedDataURL;
 
+      // Create download button
+      const downloadBtn = document.createElement("button");
+      downloadBtn.textContent = "Download Image";
+      downloadBtn.style.marginTop = "10px";
+
+      // Handle download on click
+      downloadBtn.onclick = () => {
+        const a = document.createElement('a');
+        a.href = croppedDataURL;
+        a.download = 'cropped-image.jpg';
+        a.click();
+      };
+
+      // Display cropped image and download button
       resultDiv.innerHTML = '';
       resultDiv.appendChild(croppedImg);
+      resultDiv.appendChild(downloadBtn);
     };
 
     img.onerror = function () {
