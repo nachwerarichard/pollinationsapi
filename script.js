@@ -29,7 +29,7 @@ function generateContent() {
     img.src = imgUrl;
 
     img.onload = function () {
-      const cropPercent = 0.05; // Crop bottom 10%
+      const cropPercent = 0.07; // Crop bottom 10%
       const cropHeight = img.height * (1 - cropPercent);
 
       const canvas = document.createElement("canvas");
