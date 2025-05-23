@@ -1,11 +1,18 @@
 function generateContent() {
   const userInput = document.getElementById('userInput').value.trim();
   const resultDiv = document.getElementById('result');
+  const generateBtn = document.getElementById('generateBtn');
 
   if (!userInput) {
     resultDiv.innerHTML = '<p>Please enter a prompt.</p>';
     return;
   }
+
+  // Show processing state on button
+  generateBtn.textContent = "Processing...";
+  generateBtn.disabled = true;
+  generateBtn.style.opacity = "0.6";
+  generateBtn.style.cursor = "not-allowed";
 
   resultDiv.innerHTML = '<p>Generating, please wait...</p>';
 
@@ -63,9 +70,20 @@ function generateContent() {
     resultDiv.innerHTML = '';
     resultDiv.appendChild(croppedImg);
     resultDiv.appendChild(downloadBtn);
+
+    // Reset the generate button
+    generateBtn.textContent = "Generate";
+    generateBtn.disabled = false;
+    generateBtn.style.opacity = "1";
+    generateBtn.style.cursor = "pointer";
   };
 
   img.onerror = function () {
     resultDiv.innerHTML = "<p>Error loading image.</p>";
+
+    generateBtn.textContent = "Generate";
+    generateBtn.disabled = false;
+    generateBtn.style.opacity = "1";
+    generateBtn.style.cursor = "pointer";
   };
 }
