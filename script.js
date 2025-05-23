@@ -25,26 +25,31 @@ function generateContent() {
   } else if (mode === 'image') {
     const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(userInput)}`;
     const img = new Image();
-    img.crossOrigin = "anonymous"; // Allow loading from external source
+    img.crossOrigin = "anonymous";
     img.src = imgUrl;
 
     img.onload = function () {
-      const cropPercent = 0.5; // Crop bottom 10%
+      const cropPercent = 0.1; // Crop bottom 10%
+      const cropHeight = img.height * (1 - cropPercent);
+
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
-      const croppedHeight = img.height * (1 - cropPercent);
-
       canvas.width = img.width;
-      canvas.height = croppedHeight;
+      canvas.height = cropHeight;
 
-      ctx.drawImage(img, 0, 0, img.width, croppedHeight);
+      // Draw only the top 90% of the original image
+      ctx.drawImage(
+        img,
+        0, 0,                   // Source X, Y
+        img.width, cropHeight,  // Source Width, Height to draw
+        0, 0,                   // Destination X, Y
+        img.width, cropHeight   // Destination Width, Height
+      );
 
-      // Convert canvas to image
       const croppedImg = new Image();
       croppedImg.src = canvas.toDataURL("image/jpeg");
 
-      // Clear result area and display cropped image
       resultDiv.innerHTML = '';
       resultDiv.appendChild(croppedImg);
     };
