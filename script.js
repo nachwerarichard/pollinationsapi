@@ -1,6 +1,8 @@
 // Add this outside of generateContent() to avoid duplicate listeners
 document.getElementById("closeModal").addEventListener("click", () => {
   document.getElementById("imageModal").classList.add("hidden");
+  document.getElementById("imageModal").scrollTop = 0;
+  document.getElementById("imageModal").scrollLeft = 0;
 });
 
 function generateContent() {
