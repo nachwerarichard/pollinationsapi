@@ -10,10 +10,10 @@ function generateContent() {
 
   // Show processing state on button
   generateBtn.textContent = "Processing...";
-  document.getElementById("spinner").style.display = "inline-block";
   generateBtn.disabled = true;
   generateBtn.style.opacity = "0.6";
   generateBtn.style.cursor = "not-allowed";
+  document.getElementById("spinner").classList.remove("hidden");
 
   resultDiv.innerHTML = '';
 
@@ -77,13 +77,18 @@ function generateContent() {
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
-    document.getElementById("spinner").style.display = "none";
+    resultDiv.innerHTML = '';
+resultDiv.appendChild(croppedImg);
+resultDiv.appendChild(downloadBtn);
+
+document.getElementById("spinner").classList.add("hidden");
+
 
   };
 
   img.onerror = function () {
+    document.getElementById("spinner").classList.add("hidden");
     resultDiv.innerHTML = "<p>Error loading image.</p>";
-document.getElementById("spinner").style.display = "none";
     generateBtn.textContent = "Generate";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
