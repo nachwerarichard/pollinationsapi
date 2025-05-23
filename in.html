@@ -1,46 +1,112 @@
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Richy AI Image Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css"/>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-  <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-5xl">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">Richy AI</h1>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Left Column -->
-     <!-- <div class="space-y-4">
-        <textarea 
-          id="userInput" 
-          placeholder="Enter your prompt here..." 
-          class="w-full h-32 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-        ></textarea>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-xl space-y-6">
+    <h1 class="text-2xl font-bold text-left text-gray-800">Richy AI </h1>
+    <p class="text-xl font-semibold text-indigo-600 italic">Imagine. Prompt. Create</p>
+    <textarea 
+      id="userInput" 
+      placeholder="Enter your prompt here..." 
+      class="w-full h-32 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+    ></textarea>
 
-        <button 
-          id="generateBtn" 
-          onclick="generateContent()" 
-          class="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-        >
-          <span id="btnText">Generate Image</span>
-          <svg id="spinner" class="w-4 h-4 animate-spin text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-          </svg>
-        </button>
-      </div>
+    <button id="generateBtn" onclick="generateContent()" class="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+      <span id="btnText">Create Image</span>
+      <svg id="spinner" class="w-4 h-4 animate-spin text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+      </svg>
+    </button>
 
-      <!-- Right Column (Result) -->
-     <!-- <div id="result" class="p-4 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 h-full overflow-auto">
-        <!-- Generated content will appear here -->
-      <!--</div>
+    <div id="result" class="mt-6 text-gray-800"></div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative max-w-4xl w-full px-4">
+      <button id="closeModal" class="absolute top-4 right-4 text-white text-4xl font-bold z-50 hover:text-red-400">&times;</button>
+      <img id="modalImage" src="" alt="Generated Image" class="w-full h-auto rounded shadow-lg border-4 border-white" />
     </div>
-  </div> -->
+  </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Modal close handler
+    document.getElementById("closeModal").addEventListener("click", () => {
+      document.getElementById("imageModal").classList.add("hidden");
+    });
+
+    function generateContent() {
+      const userInput = document.getElementById('userInput').value.trim();
+      const resultDiv = document.getElementById('result');
+      const generateBtn = document.getElementById('generateBtn');
+
+      if (!userInput) {
+        resultDiv.innerHTML = '<p class="text-red-500">Please enter a prompt.</p>';
+        return;
+      }
+
+      document.getElementById("btnText").textContent = "Processing...";
+      generateBtn.disabled = true;
+      document.getElementById("spinner").classList.remove("hidden");
+
+      const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(userInput)}`;
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = imgUrl;
+
+      img.onload = function () {
+        const cropPercent = 0.1;
+        const cropHeight = img.height * (1 - cropPercent);
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = cropHeight;
+        ctx.drawImage(img, 0, 0, img.width, cropHeight, 0, 0, img.width, cropHeight);
+
+        const croppedDataURL = canvas.toDataURL("image/jpeg");
+        const croppedImg = new Image();
+        croppedImg.src = croppedDataURL;
+        croppedImg.classList.add("cursor-pointer", "rounded", "shadow-md");
+
+        // Click to open modal
+        croppedImg.onclick = () => {
+          document.getElementById("modalImage").src = croppedDataURL;
+          document.getElementById("imageModal").classList.remove("hidden");
+        };
+
+        const downloadBtn = document.createElement("button");
+        downloadBtn.textContent = "Download Image";
+        downloadBtn.className = "bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded mt-4 font-semibold";
+        downloadBtn.onclick = () => {
+          const a = document.createElement('a');
+          a.href = croppedDataURL;
+          a.download = 'image.jpg';
+          a.click();
+        };
+
+        resultDiv.innerHTML = '';
+        resultDiv.appendChild(croppedImg);
+        resultDiv.appendChild(downloadBtn);
+
+        document.getElementById("btnText").textContent = "Create Image";
+        generateBtn.disabled = false;
+        document.getElementById("spinner").classList.add("hidden");
+      };
+
+      img.onerror = function () {
+        resultDiv.innerHTML = "<p class='text-red-500'>Error loading image.</p>";
+        document.getElementById("btnText").textContent = "Create Image";
+        generateBtn.disabled = false;
+        document.getElementById("spinner").classList.add("hidden");
+      };
+    }
+  </script>
 </body>
-
 </html>
+
