@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css"/>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center bg-[url('bgimg_01.png')] bg-no-repeat bg-center bg-cover">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center ">
   <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-xl space-y-6">
     <h1 class="text-2xl font-bold text-left text-gray-800">Richy AI </h1>
     
@@ -17,15 +17,14 @@
       class="w-full h-32 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
     ></textarea>
     
-    <button id="generateBtn" onclick="generateContent()">
+  <button id="generateBtn" onclick="generateContent()" class="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
   <span id="btnText">Generate</span>
-  <span id="spinner" style="display:none; margin-left: 8px;">
-    <svg xmlns="http://www.w3.org/2000/svg" class="spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
-      <path d="M12 2a10 10 0 0 1 10 10" />
-    </svg>
-  </span>
+  <svg id="spinner" class="w-4 h-4 animate-spin text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+  </svg>
 </button>
+
 
     
     <div id="result" class="mt-6 text-gray-800"></div>
