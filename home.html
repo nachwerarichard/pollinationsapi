@@ -3,29 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pollinations AI Generator</title>
+  <title>Richy AI Image Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
   <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-xl space-y-6">
-    <h1 class="text-2xl font-bold text-center text-gray-800">Richy AI Generator</h1>
+    <h1 class="text-2xl font-bold text-center text-gray-800">Richy AI Image Generator</h1>
     
     <textarea 
       id="userInput" 
       placeholder="Enter your prompt here..." 
       class="w-full h-32 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
     ></textarea>
-    
-    <div class="flex items-center space-x-4">
-      <label class="flex items-center space-x-2">
-        <input type="radio" name="mode" value="text" checked class="form-radio text-blue-500" />
-        <span class="text-gray-700">Text</span>
-      </label>
-      <label class="flex items-center space-x-2">
-        <input type="radio" name="mode" value="image" class="form-radio text-blue-500" />
-        <span class="text-gray-700">Image</span>
-      </label>
-    </div>
     
     <button 
       onclick="generateContent()" 
