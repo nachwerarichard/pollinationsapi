@@ -3,16 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pollinations AI Text Generator</title>
+  <title>Pollinations AI Generator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Pollinations AI Text Generator</h1>
+    <h1>Pollinations AI Generator</h1>
+    
     <textarea id="userInput" placeholder="Enter your prompt here..."></textarea>
-    <button onclick="generateText()">Generate Text</button>
+    
+    <div class="mode">
+      <label><input type="radio" name="mode" value="text" checked> Text</label>
+      <label><input type="radio" name="mode" value="image"> Image</label>
+    </div>
+    
+    <button onclick="generateContent()">Generate</button>
+    
     <div id="result"></div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
