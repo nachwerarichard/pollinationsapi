@@ -73,7 +73,7 @@ function generateContent() {
     resultDiv.appendChild(downloadBtn);
 
     // Reset the generate button
-document.getElementById("btnText").textContent = "Generate Image";
+document.getElementById("btnText").textContent = "Create Image";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
