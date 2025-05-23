@@ -73,7 +73,7 @@ function generateContent() {
     resultDiv.appendChild(downloadBtn);
 
     // Reset the generate button
-document.getElementById("btnText").textContent = "Generate";
+document.getElementById("btnText").textContent = "Generate Image";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
@@ -89,7 +89,7 @@ document.getElementById("spinner").classList.add("hidden");
   img.onerror = function () {
     document.getElementById("spinner").classList.add("hidden");
     resultDiv.innerHTML = "<p>Error loading image.</p>";
-    generateBtn.textContent = "Generate";
+    generateBtn.textContent = "Generate Image";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
