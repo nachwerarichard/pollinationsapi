@@ -10,11 +10,12 @@ function generateContent() {
 
   // Show processing state on button
   generateBtn.textContent = "Processing...";
+  document.getElementById("spinner").style.display = "inline-block";
   generateBtn.disabled = true;
   generateBtn.style.opacity = "0.6";
   generateBtn.style.cursor = "not-allowed";
 
-  resultDiv.innerHTML = '<p>Generating, please wait...</p>';
+  resultDiv.innerHTML = '';
 
   const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(userInput)}`;
   const img = new Image();
@@ -76,14 +77,17 @@ function generateContent() {
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
+    document.getElementById("spinner").style.display = "none";
+
   };
 
   img.onerror = function () {
     resultDiv.innerHTML = "<p>Error loading image.</p>";
-
+document.getElementById("spinner").style.display = "none";
     generateBtn.textContent = "Generate";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
+    
   };
 }
