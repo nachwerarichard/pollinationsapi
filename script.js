@@ -39,7 +39,7 @@ function generateContent() {
     canvas.height = cropHeight;
     ctx.drawImage(img, 0, 0, img.width, cropHeight, 0, 0, img.width, cropHeight);
 
-    const croppedDataURL = canvas.toDataURL("image/jpeg");
+    const croppedDataURL = canvas.toDataURL("image/png");
     const croppedImg = new Image();
     croppedImg.src = croppedDataURL;
     croppedImg.classList.add("cursor-pointer", "rounded", "shadow-md");
