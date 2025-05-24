@@ -176,7 +176,7 @@ buttonContainer.appendChild(copyBtn);
 buttonContainer.appendChild(shareBtn);
 
 // Append container to the DOM (adjust as needed)
-document.body.appendChild(buttonContainer);
+resultDiv.appendChild(buttonContainer);
 
 
 
