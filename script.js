@@ -53,14 +53,19 @@ function generateContent() {
     };
 
    // Create a container for all buttons
-const buttonContainer = document.createElement("div");
-Object.assign(buttonContainer.style, {
-  display: "flex",
-  gap: "10px",
-  marginTop: "20px",
-  flexWrap: "wrap" // Responsive stacking on small screens
-});
-
+   const buttonContainer = document.createElement("div");
+   Object.assign(buttonContainer.style, {
+     display: "flex",
+     flexWrap: "wrap",          // Allows buttons to wrap on smaller screens
+     gap: "10px",               // Adds space between buttons
+     justifyContent: "center", // Centers buttons horizontally
+     alignItems: "center",     // Centers buttons vertically
+     marginTop: "20px",
+     width: "100%",            // Makes sure it uses full container width
+     maxWidth: "100%",
+     boxSizing: "border-box"   // Prevents overflowing padding/margins
+   });
+   
 // ----- Download Button -----
 const downloadBtn = document.createElement("button");
 downloadBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">download</span>Download';
