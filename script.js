@@ -52,38 +52,20 @@ function generateContent() {
       document.getElementById("imageModal").classList.remove("hidden");
     };
 
-    const downloadBtn = document.createElement("button");
-    downloadBtn.textContent = "Download Image";
-    Object.assign(downloadBtn.style, {
-      backgroundColor: "#4f46e5",
-      color: "#fff",
-      padding: "10px 20px",
-      border: "none",
-      borderRadius: "8px",
-      cursor: "pointer",
-      fontSize: "16px",
-      fontWeight: "600",
-      marginTop: "15px",
-      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      transition: "background-color 0.3s ease"
-    });
+   // Create a container for all buttons
+const buttonContainer = document.createElement("div");
+Object.assign(buttonContainer.style, {
+  display: "flex",
+  gap: "10px",
+  marginTop: "20px",
+  flexWrap: "wrap" // Responsive stacking on small screens
+});
 
-    downloadBtn.onmouseover = () => {
-      downloadBtn.style.backgroundColor = "#4338ca";
-    };
-    downloadBtn.onmouseleave = () => {
-      downloadBtn.style.backgroundColor = "#4f46e5";
-    };
-    downloadBtn.onclick = () => {
-      const a = document.createElement('a');
-      a.href = croppedDataURL;
-      a.download = 'image.jpg';
-      a.click();
-    };
-    const copyBtn = document.createElement("button");
-copyBtn.textContent = "Copy to Clipboard";
-Object.assign(copyBtn.style, {
-  backgroundColor: "#10b981", // Tailwind's emerald-500
+// ----- Download Button -----
+const downloadBtn = document.createElement("button");
+downloadBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">download</span>Download';
+Object.assign(downloadBtn.style, {
+  backgroundColor: "#4f46e5",
   color: "#fff",
   padding: "10px 20px",
   border: "none",
@@ -91,19 +73,39 @@ Object.assign(copyBtn.style, {
   cursor: "pointer",
   fontSize: "16px",
   fontWeight: "600",
-  marginTop: "10px",
-  marginLeft: "10px",
+  display: "flex",
+  alignItems: "center",
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease"
 });
-
-copyBtn.onmouseover = () => {
-  copyBtn.style.backgroundColor = "#059669"; // emerald-600
+downloadBtn.onmouseover = () => downloadBtn.style.backgroundColor = "#4338ca";
+downloadBtn.onmouseleave = () => downloadBtn.style.backgroundColor = "#4f46e5";
+downloadBtn.onclick = () => {
+  const a = document.createElement('a');
+  a.href = croppedDataURL;
+  a.download = 'image.jpg';
+  a.click();
 };
-copyBtn.onmouseleave = () => {
-  copyBtn.style.backgroundColor = "#10b981";
-};
 
+// ----- Copy Button -----
+const copyBtn = document.createElement("button");
+copyBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">content_copy</span>Copy';
+Object.assign(copyBtn.style, {
+  backgroundColor: "#10b981",
+  color: "#fff",
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  fontSize: "16px",
+  fontWeight: "600",
+  display: "flex",
+  alignItems: "center",
+  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  transition: "background-color 0.3s ease"
+});
+copyBtn.onmouseover = () => copyBtn.style.backgroundColor = "#059669";
+copyBtn.onmouseleave = () => copyBtn.style.backgroundColor = "#10b981";
 copyBtn.onclick = async () => {
   try {
     const res = await fetch(croppedImg.src);
@@ -111,19 +113,20 @@ copyBtn.onclick = async () => {
     await navigator.clipboard.write([
       new ClipboardItem({ [blob.type]: blob })
     ]);
-    copyBtn.textContent = "Copied!";
+    copyBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">check</span>Copied!';
     setTimeout(() => {
-      copyBtn.textContent = "Copy to Clipboard";
+      copyBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">content_copy</span>Copy';
     }, 2000);
   } catch (err) {
     alert("Failed to copy image: " + err);
   }
 };
 
+// ----- Share Button -----
 const shareBtn = document.createElement("button");
-shareBtn.textContent = "Share";
+shareBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">share</span>Share';
 Object.assign(shareBtn.style, {
-  backgroundColor: "#3b82f6", // Tailwind's blue-500
+  backgroundColor: "#3b82f6",
   color: "#fff",
   padding: "10px 20px",
   border: "none",
@@ -131,22 +134,16 @@ Object.assign(shareBtn.style, {
   cursor: "pointer",
   fontSize: "16px",
   fontWeight: "600",
-  marginTop: "10px",
-  marginLeft: "10px",
+  display: "flex",
+  alignItems: "center",
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease"
 });
-
-shareBtn.onmouseover = () => {
-  shareBtn.style.backgroundColor = "#2563eb"; // blue-600
-};
-shareBtn.onmouseleave = () => {
-  shareBtn.style.backgroundColor = "#3b82f6";
-};
-
+shareBtn.onmouseover = () => shareBtn.style.backgroundColor = "#2563eb";
+shareBtn.onmouseleave = () => shareBtn.style.backgroundColor = "#3b82f6";
 shareBtn.onclick = async () => {
   try {
-    shareBtn.textContent = "Sharing...";
+    shareBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">hourglass_top</span>Sharing...';
     shareBtn.disabled = true;
 
     const response = await fetch(croppedImg.src);
@@ -154,12 +151,8 @@ shareBtn.onclick = async () => {
     const file = new File([blob], "image.png", { type: blob.type });
 
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      // Use Web Share API
-      await navigator.share({
-        files: [file]
-      });
+      await navigator.share({ files: [file] });
     } else {
-      // Fallback: open image in new tab for manual sharing
       const blobUrl = URL.createObjectURL(blob);
       const fallbackLink = document.createElement("a");
       fallbackLink.href = blobUrl;
@@ -167,19 +160,24 @@ shareBtn.onclick = async () => {
       fallbackLink.target = "_blank";
       fallbackLink.click();
       URL.revokeObjectURL(blobUrl);
-      alert("Your device does not support direct sharing. The image has been opened/downloaded for manual sharing.");
+      alert("Your device does not support sharing. Image downloaded/opened instead.");
     }
   } catch (error) {
     alert("Error while sharing: " + error.message);
   } finally {
-    shareBtn.textContent = "Share";
+    shareBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">share</span>Share';
     shareBtn.disabled = false;
   }
 };
 
+// Append all buttons to the container
+buttonContainer.appendChild(downloadBtn);
+buttonContainer.appendChild(copyBtn);
+buttonContainer.appendChild(shareBtn);
 
+// Append container to the DOM (adjust as needed)
+document.body.appendChild(buttonContainer);
 
- 
 
 
 
