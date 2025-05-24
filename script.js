@@ -52,25 +52,38 @@ function generateContent() {
       document.getElementById("imageModal").classList.remove("hidden");
     };
 
-   // Create a container for all buttons
-   const buttonContainer = document.createElement("div");
-   Object.assign(buttonContainer.style, {
-     display: "flex",
-     flexWrap: "wrap",          // Allows buttons to wrap on smaller screens
-     gap: "10px",               // Adds space between buttons
-     justifyContent: "center", // Centers buttons horizontally
-     alignItems: "center",     // Centers buttons vertically
-     marginTop: "20px",
-     width: "100%",            // Makes sure it uses full container width
-     maxWidth: "100%",
-     boxSizing: "border-box"   // Prevents overflowing padding/margins
-   });
-   
-// ----- Download Button -----
-const downloadBtn = document.createElement("button");
-downloadBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">download</span>Download';
-Object.assign(downloadBtn.style, {
-  backgroundColor: "#4f46e5",
+    const downloadBtn = document.createElement("button");
+    downloadBtn.textContent = "Download Image";
+    Object.assign(downloadBtn.style, {
+      backgroundColor: "#4f46e5",
+      color: "#fff",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontSize: "16px",
+      fontWeight: "600",
+      marginTop: "15px",
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      transition: "background-color 0.3s ease"
+    });
+
+    downloadBtn.onmouseover = () => {
+      downloadBtn.style.backgroundColor = "#4338ca";
+    };
+    downloadBtn.onmouseleave = () => {
+      downloadBtn.style.backgroundColor = "#4f46e5";
+    };
+    downloadBtn.onclick = () => {
+      const a = document.createElement('a');
+      a.href = croppedDataURL;
+      a.download = 'image.jpg';
+      a.click();
+    };
+    const copyBtn = document.createElement("button");
+copyBtn.textContent = "Copy to Clipboard";
+Object.assign(copyBtn.style, {
+  backgroundColor: "#10b981", // Tailwind's emerald-500
   color: "#fff",
   padding: "10px 20px",
   border: "none",
@@ -78,39 +91,19 @@ Object.assign(downloadBtn.style, {
   cursor: "pointer",
   fontSize: "16px",
   fontWeight: "600",
-  display: "flex",
-  alignItems: "center",
+  marginTop: "10px",
+  marginLeft: "10px",
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease"
 });
-downloadBtn.onmouseover = () => downloadBtn.style.backgroundColor = "#4338ca";
-downloadBtn.onmouseleave = () => downloadBtn.style.backgroundColor = "#4f46e5";
-downloadBtn.onclick = () => {
-  const a = document.createElement('a');
-  a.href = croppedDataURL;
-  a.download = 'image.jpg';
-  a.click();
+
+copyBtn.onmouseover = () => {
+  copyBtn.style.backgroundColor = "#059669"; // emerald-600
+};
+copyBtn.onmouseleave = () => {
+  copyBtn.style.backgroundColor = "#10b981";
 };
 
-// ----- Copy Button -----
-const copyBtn = document.createElement("button");
-copyBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">content_copy</span>Copy';
-Object.assign(copyBtn.style, {
-  backgroundColor: "#10b981",
-  color: "#fff",
-  padding: "10px 20px",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  fontSize: "16px",
-  fontWeight: "600",
-  display: "flex",
-  alignItems: "center",
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  transition: "background-color 0.3s ease"
-});
-copyBtn.onmouseover = () => copyBtn.style.backgroundColor = "#059669";
-copyBtn.onmouseleave = () => copyBtn.style.backgroundColor = "#10b981";
 copyBtn.onclick = async () => {
   try {
     const res = await fetch(croppedImg.src);
@@ -118,20 +111,18 @@ copyBtn.onclick = async () => {
     await navigator.clipboard.write([
       new ClipboardItem({ [blob.type]: blob })
     ]);
-    copyBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">check</span>Copied!';
+    copyBtn.textContent = "Copied!";
     setTimeout(() => {
-      copyBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">content_copy</span>Copy';
+      copyBtn.textContent = "Copy to Clipboard";
     }, 2000);
   } catch (err) {
     alert("Failed to copy image: " + err);
   }
 };
-
-// ----- Share Button -----
-const shareBtn = document.createElement("button");
-shareBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">share</span>Share';
-Object.assign(shareBtn.style, {
-  backgroundColor: "#3b82f6",
+const htmlBtn = document.createElement("button");
+htmlBtn.textContent = "Generate HTML";
+Object.assign(htmlBtn.style, {
+  backgroundColor: "#f59e0b", // Tailwind's amber-500
   color: "#fff",
   padding: "10px 20px",
   border: "none",
@@ -139,50 +130,55 @@ Object.assign(shareBtn.style, {
   cursor: "pointer",
   fontSize: "16px",
   fontWeight: "600",
-  display: "flex",
-  alignItems: "center",
+  marginTop: "10px",
+  marginLeft: "10px",
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease"
 });
-shareBtn.onmouseover = () => shareBtn.style.backgroundColor = "#2563eb";
-shareBtn.onmouseleave = () => shareBtn.style.backgroundColor = "#3b82f6";
-shareBtn.onclick = async () => {
+
+htmlBtn.onmouseover = () => {
+  htmlBtn.style.backgroundColor = "#d97706"; // amber-600
+};
+htmlBtn.onmouseleave = () => {
+  htmlBtn.style.backgroundColor = "#f59e0b";
+};
+htmlBtn.onclick = async () => {
   try {
-    shareBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">hourglass_top</span>Sharing...';
-    shareBtn.disabled = true;
+    htmlBtn.textContent = "Generating...";
+    htmlBtn.disabled = true;
 
-    const response = await fetch(croppedImg.src);
-    const blob = await response.blob();
-    const file = new File([blob], "image.png", { type: blob.type });
+    const blob = await fetch(croppedImg.src).then(res => res.blob());
+    const formData = new FormData();
+    formData.append("email", "nachwerarichard@gmail.com"); // replace with your email
+    formData.append("api_key", "ae111f741e9f356d1726d33c1014188a"); // replace with your actual key
+    formData.append("file", blob, "image.png");
 
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file] });
+    const response = await fetch("https://api.img2html.com/api/generate-html", {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (result.status === "success") {
+      const pre = document.createElement("pre");
+      pre.textContent = result.html;
+      pre.className = "bg-gray-100 p-4 overflow-auto text-sm mt-4 rounded border";
+
+      resultDiv.appendChild(pre);
     } else {
-      const blobUrl = URL.createObjectURL(blob);
-      const fallbackLink = document.createElement("a");
-      fallbackLink.href = blobUrl;
-      fallbackLink.download = "image.png";
-      fallbackLink.target = "_blank";
-      fallbackLink.click();
-      URL.revokeObjectURL(blobUrl);
-      alert("Your device does not support sharing. Image downloaded/opened instead.");
+      alert("Failed to generate HTML.");
     }
+
   } catch (error) {
-    alert("Error while sharing: " + error.message);
+    alert("Error: " + error.message);
   } finally {
-    shareBtn.innerHTML = '<span class="material-icons" style="vertical-align: middle; margin-right: 6px;">share</span>Share';
-    shareBtn.disabled = false;
+    htmlBtn.textContent = "Generate HTML";
+    htmlBtn.disabled = false;
   }
 };
 
-// Append all buttons to the container
-buttonContainer.appendChild(downloadBtn);
-buttonContainer.appendChild(copyBtn);
-buttonContainer.appendChild(shareBtn);
-
-// Append container to the DOM (adjust as needed)
-resultDiv.appendChild(buttonContainer);
-
+ 
 
 
 
@@ -192,8 +188,6 @@ resultDiv.appendChild(buttonContainer);
     resultDiv.appendChild(croppedImg);
     resultDiv.appendChild(downloadBtn);
     resultDiv.appendChild(copyBtn);
-    resultDiv.appendChild(shareBtn);
-
 
 
     document.getElementById("btnText").textContent = "Create Image";
