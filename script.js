@@ -187,7 +187,7 @@ document.body.appendChild(buttonContainer);
     resultDiv.appendChild(croppedImg);
     resultDiv.appendChild(downloadBtn);
     resultDiv.appendChild(copyBtn);
-    document.body.appendChild(shareBtn);
+    resultDiv.appendChild(shareBtn);
 
 
 
