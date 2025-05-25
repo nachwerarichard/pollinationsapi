@@ -199,7 +199,7 @@ htmlBtn.onclick = async () => {
 
   img.onerror = function () {
     document.getElementById("spinner").classList.add("hidden");
-    resultDiv.innerHTML = "<p class='text-red-500'>Error loading image.</p>";
+    resultDiv.innerHTML = "<p class='text-red-500'>Error loading image.Refresh and try again</p>";
     document.getElementById("btnText").textContent = "Create Image";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
