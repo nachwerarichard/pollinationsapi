@@ -8,7 +8,7 @@ const buttonContainer = document.createElement("div");
 Object.assign(buttonContainer.style, {
   display: "flex",
   flexWrap: "wrap",         // allow wrapping on small screens
-  justifyContent: "center", // center buttons on large screens
+  justifyContent: "left", // center buttons on large screens
   alignItems: "center",
   marginTop: "20px"
 });
@@ -61,7 +61,7 @@ function generateContent() {
     };
 
     const downloadBtn = document.createElement("button");
-    downloadBtn.textContent = "Download Image";
+    downloadBtn.textContent = "Download";
     Object.assign(downloadBtn.style, {
       backgroundColor: "#4f46e5",
       color: "#fff",
@@ -121,7 +121,7 @@ copyBtn.onclick = async () => {
     ]);
     copyBtn.textContent = "Copied!";
     setTimeout(() => {
-      copyBtn.textContent = "Copy to Clipboard";
+      copyBtn.textContent = "Copy";
     }, 2000);
   } catch (err) {
     alert("Failed to copy image: " + err);
