@@ -98,7 +98,6 @@ downloadBtn.className = `
       text-white 
       px-10
       py-2.5 
-      ml-2
       rounded-lg 
       cursor-pointer 
       text-base 
