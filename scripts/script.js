@@ -4,7 +4,16 @@ document.getElementById("closeModal").addEventListener("click", () => {
   document.getElementById("imageModal").scrollTop = 0;
   document.getElementById("imageModal").scrollLeft = 0;
 });
-
+const buttonContainer = document.createElement("div");
+buttonContainer.className = `
+  flex 
+  flex-col 
+  sm:flex-row 
+  gap-4 
+  mt-4 
+  items-start 
+  sm:items-center
+`;
 function generateContent() {
   const userInput = document.getElementById('userInput').value.trim();
   const resultDiv = document.getElementById('result');
@@ -53,21 +62,21 @@ function generateContent() {
     };
 
     const downloadBtn = document.createElement("button");
-    downloadBtn.textContent = "Download Image";
-    Object.assign(downloadBtn.style, {
-      backgroundColor: "#4f46e5",
-      color: "#fff",
-      padding: "10px 20px",
-      border: "none",
-      borderRadius: "8px",
-      cursor: "pointer",
-      fontSize: "16px",
-      fontWeight: "600",
-      marginTop: "15px",
-      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      transition: "background-color 0.3s ease",
-      paddingRight:"10px"
-    });
+downloadBtn.textContent = "Download Image";
+downloadBtn.className = `
+  bg-indigo-600 
+  hover:bg-indigo-700 
+  text-white 
+  px-5 
+  py-2.5 
+  rounded-lg 
+  cursor-pointer 
+  text-base 
+  font-semibold 
+  shadow-md 
+  transition-colors 
+  duration-300
+`;
 
     downloadBtn.onmouseover = () => {
       downloadBtn.style.backgroundColor = "#4338ca";
@@ -82,24 +91,21 @@ function generateContent() {
       a.click();
     };
     const copyBtn = document.createElement("button");
-copyBtn.textContent = "Copy to Clipboard";
-Object.assign(copyBtn.style, {
-  backgroundColor: "#10b981", // Tailwind's emerald-500
-
-  marginTop: "15px",
- 
-
-
-  color: "#fff",
-  padding: "10px 20px",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  fontSize: "16px",
-  fontWeight: "600",
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  transition: "background-color 0.3s ease"
-});
+    copyBtn.textContent = "Copy to Clipboard";
+    copyBtn.className = `
+      bg-emerald-500 
+      hover:bg-emerald-600 
+      text-white 
+      px-5 
+      py-2.5 
+      rounded-lg 
+      cursor-pointer 
+      text-base 
+      font-semibold 
+      shadow-md 
+      transition-colors 
+      duration-300
+    `;
 
 copyBtn.onmouseover = () => {
   copyBtn.style.backgroundColor = "#059669"; // emerald-600
