@@ -10,6 +10,7 @@ Object.assign(buttonContainer.style, {
   flexWrap: "wrap", // allows wrapping on small screens
   gap: "20px", // space between buttons
   marginTop: "20px",
+  marginLeft:"10px",
   justifyContent: "center", // or 'start' depending on layout
   alignItems: "center"
 });
