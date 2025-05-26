@@ -84,6 +84,11 @@ function generateContent() {
 copyBtn.textContent = "Copy to Clipboard";
 Object.assign(copyBtn.style, {
   backgroundColor: "#10b981", // Tailwind's emerald-500
+
+  marginTop: "15px",
+ 
+
+
   color: "#fff",
   padding: "10px 20px",
   border: "none",
@@ -91,8 +96,6 @@ Object.assign(copyBtn.style, {
   cursor: "pointer",
   fontSize: "16px",
   fontWeight: "600",
-  marginTop: "10px",
-  marginLeft: "10px",
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease"
 });
