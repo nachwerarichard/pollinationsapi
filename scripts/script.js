@@ -90,7 +90,7 @@ function generateContent() {
       a.click();
     };
     const copyBtn = document.createElement("button");
-    copyBtn.textContent = "Copy to Clipboard";
+    copyBtn.textContent = "Copy ";
     Object.assign(copyBtn.style, {
       backgroundColor: "#10b981",
       color: "#fff",
