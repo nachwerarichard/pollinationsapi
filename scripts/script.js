@@ -67,9 +67,8 @@ downloadBtn.className = `
   bg-indigo-600 
   hover:bg-indigo-700 
   text-white 
-  px-5 
+  px-10
   py-2.5 
-  ml-2
   rounded-lg 
   cursor-pointer 
   text-base 
@@ -97,7 +96,7 @@ downloadBtn.className = `
       bg-emerald-500 
       hover:bg-emerald-600 
       text-white 
-      px-5 
+      px-10
       py-2.5 
       ml-2
       rounded-lg 
