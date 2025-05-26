@@ -64,7 +64,6 @@ function generateContent() {
       fontSize: "16px",
       fontWeight: "600",
       marginTop: "15px",
-      marginLeft: "10px",
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       transition: "background-color 0.3s ease"
     });
@@ -93,7 +92,7 @@ Object.assign(copyBtn.style, {
   fontSize: "16px",
   fontWeight: "600",
   marginTop: "10px",
-  marginLeft: "10px",
+  paddingLeft: "10px",
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease"
 });
