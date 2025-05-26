@@ -4,6 +4,15 @@ document.getElementById("closeModal").addEventListener("click", () => {
   document.getElementById("imageModal").scrollTop = 0;
   document.getElementById("imageModal").scrollLeft = 0;
 });
+const buttonContainer = document.createElement("div");
+Object.assign(buttonContainer.style, {
+  display: "flex",
+  flexWrap: "wrap", // allows wrapping on small screens
+  gap: "20px", // space between buttons
+  marginTop: "20px",
+  justifyContent: "center", // or 'start' depending on layout
+  alignItems: "center"
+});
 
 function generateContent() {
   const userInput = document.getElementById('userInput').value.trim();
@@ -92,7 +101,6 @@ Object.assign(copyBtn.style, {
   fontSize: "16px",
   fontWeight: "600",
   marginTop: "10px",
-  paddingLeft: "10px",
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease"
 });
@@ -123,6 +131,8 @@ copyBtn.onclick = async () => {
     resultDiv.appendChild(croppedImg);
     resultDiv.appendChild(downloadBtn);
     resultDiv.appendChild(copyBtn);
+    resultDiv.appendChild(buttonContainer); // Replace 'document.body' with your specific target element
+
 
 
     document.getElementById("btnText").textContent = "Create Image";
