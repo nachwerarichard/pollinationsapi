@@ -7,12 +7,10 @@ document.getElementById("closeModal").addEventListener("click", () => {
 const buttonContainer = document.createElement("div");
 Object.assign(buttonContainer.style, {
   display: "flex",
-  flexWrap: "wrap", // allows wrapping on small screens
-  gap: "20px", // space between buttons
-  marginTop: "20px",
-  marginLeft:"10px",
-  justifyContent: "center", // or 'start' depending on layout
-  alignItems: "center"
+  flexWrap: "wrap",         // allow wrapping on small screens
+  justifyContent: "center", // center buttons on large screens
+  alignItems: "center",
+  marginTop: "20px"
 });
 
 function generateContent() {
@@ -73,10 +71,10 @@ function generateContent() {
       cursor: "pointer",
       fontSize: "16px",
       fontWeight: "600",
-      gap: "20px", // space between buttons
-      marginTop: "15px",
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      transition: "background-color 0.3s ease"
+      transition: "background-color 0.3s ease",
+      marginRight: "20px", // spacing between buttons (only this one gets it)
+      marginBottom: "10px" // small bottom margin to allow breathing when stacked
     });
 
     downloadBtn.onmouseover = () => {
@@ -92,21 +90,20 @@ function generateContent() {
       a.click();
     };
     const copyBtn = document.createElement("button");
-copyBtn.textContent = "Copy to Clipboard";
-Object.assign(copyBtn.style, {
-  backgroundColor: "#10b981", // Tailwind's emerald-500
-  color: "#fff",
-  padding: "10px 20px",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  fontSize: "16px",
-  fontWeight: "600",
-  marginTop: "10px",
-  gap: "20px", // space between buttons
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  transition: "background-color 0.3s ease"
-});
+    copyBtn.textContent = "Copy to Clipboard";
+    Object.assign(copyBtn.style, {
+      backgroundColor: "#10b981",
+      color: "#fff",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontSize: "16px",
+      fontWeight: "600",
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      transition: "background-color 0.3s ease",
+      marginBottom: "10px" // same as above, for clean stacking
+    });
 
 copyBtn.onmouseover = () => {
   copyBtn.style.backgroundColor = "#059669"; // emerald-600
