@@ -69,6 +69,7 @@ downloadBtn.className = `
   text-white 
   px-5 
   py-2.5 
+  ml-2
   rounded-lg 
   cursor-pointer 
   text-base 
@@ -98,6 +99,7 @@ downloadBtn.className = `
       text-white 
       px-5 
       py-2.5 
+      ml-2
       rounded-lg 
       cursor-pointer 
       text-base 
