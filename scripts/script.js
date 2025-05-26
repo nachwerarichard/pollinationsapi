@@ -73,6 +73,7 @@ function generateContent() {
       cursor: "pointer",
       fontSize: "16px",
       fontWeight: "600",
+      gap: "20px", // space between buttons
       marginTop: "15px",
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       transition: "background-color 0.3s ease"
@@ -102,6 +103,7 @@ Object.assign(copyBtn.style, {
   fontSize: "16px",
   fontWeight: "600",
   marginTop: "10px",
+  gap: "20px", // space between buttons
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease"
 });
