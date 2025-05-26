@@ -129,8 +129,8 @@ copyBtn.onclick = async () => {
 };
     resultDiv.innerHTML = '';
     resultDiv.appendChild(croppedImg);
-    resultDiv.appendChild(downloadBtn);
-    resultDiv.appendChild(copyBtn);
+    buttonContainer.appendChild(downloadBtn);
+    buttonContainer.appendChild(copyBtn);
     resultDiv.appendChild(buttonContainer); // Replace 'document.body' with your specific target element
 
 
