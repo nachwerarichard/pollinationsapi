@@ -12,46 +12,36 @@ Object.assign(buttonContainer.style, {
   alignItems: "center",
   marginTop: "20px"
 });
-
 function generateContent() {
   const userInput = document.getElementById('userInput').value.trim();
   const resultDiv = document.getElementById('result');
   const generateBtn = document.getElementById('generateBtn');
-
   if (!userInput) {
     resultDiv.innerHTML = '<p class="text-red-500">Please enter a prompt.</p>';
     return;
   }
-
   document.getElementById("btnText").textContent = "Processing...";
   generateBtn.disabled = true;
   generateBtn.style.opacity = "0.6";
   generateBtn.style.cursor = "not-allowed";
   document.getElementById("spinner").classList.remove("hidden");
-
   resultDiv.innerHTML = '';
-
   const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(userInput)}`;
   const img = new Image();
   img.crossOrigin = "anonymous";
   img.src = imgUrl;
-
   img.onload = function () {
     const cropPercent = 0.1;
     const cropHeight = img.height * (1 - cropPercent);
-
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-
     canvas.width = img.width;
     canvas.height = cropHeight;
     ctx.drawImage(img, 0, 0, img.width, cropHeight, 0, 0, img.width, cropHeight);
-
     const croppedDataURL = canvas.toDataURL("image/png");
     const croppedImg = new Image();
     croppedImg.src = croppedDataURL;
     croppedImg.classList.add("cursor-pointer", "rounded", "shadow-md");
-
     // 👉 Open modal on image click
     croppedImg.onclick = () => {
         currentZoom = 1; // Reset zoom when modal opens
@@ -59,7 +49,6 @@ function generateContent() {
         modalImage.style.transform = `scale(${currentZoom})`;
       document.getElementById("imageModal").classList.remove("hidden");
     };
-
     const downloadBtn = document.createElement("button");
     downloadBtn.textContent = "Download";
     Object.assign(downloadBtn.style, {
@@ -76,7 +65,6 @@ function generateContent() {
       marginRight: "20px", // spacing between buttons (only this one gets it)
       marginBottom: "10px" // small bottom margin to allow breathing when stacked
     });
-
     downloadBtn.onmouseover = () => {
       downloadBtn.style.backgroundColor = "#4338ca";
     };
@@ -104,14 +92,12 @@ function generateContent() {
       transition: "background-color 0.3s ease",
       marginBottom: "10px" // same as above, for clean stacking
     });
-
 copyBtn.onmouseover = () => {
   copyBtn.style.backgroundColor = "#059669"; // emerald-600
 };
 copyBtn.onmouseleave = () => {
   copyBtn.style.backgroundColor = "#10b981";
 };
-
 copyBtn.onclick = async () => {
   try {
     const res = await fetch(croppedImg.src);
@@ -132,16 +118,12 @@ copyBtn.onclick = async () => {
     buttonContainer.appendChild(downloadBtn);
     buttonContainer.appendChild(copyBtn);
     resultDiv.appendChild(buttonContainer); // Replace 'document.body' with your specific target element
-
-
-
     document.getElementById("btnText").textContent = "Create Image";
     generateBtn.disabled = false;
     generateBtn.style.opacity = "1";
     generateBtn.style.cursor = "pointer";
     document.getElementById("spinner").classList.add("hidden");
   };
-
   img.onerror = function () {
     document.getElementById("spinner").classList.add("hidden");
     resultDiv.innerHTML = "<p class='text-red-500'>Error loading image.Refresh and try again</p>";
@@ -153,12 +135,10 @@ copyBtn.onclick = async () => {
 }
 let currentZoom = 1;
 const modalImage = document.getElementById("modalImage");
-
 document.getElementById("zoomIn").addEventListener("click", () => {
   currentZoom += 0.1;
   modalImage.style.transform = `scale(${currentZoom})`;
 });
-
 document.getElementById("zoomOut").addEventListener("click", () => {
   if (currentZoom > 0.2) {
     currentZoom -= 0.1;
