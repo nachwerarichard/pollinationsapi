@@ -4,16 +4,7 @@ document.getElementById("closeModal").addEventListener("click", () => {
   document.getElementById("imageModal").scrollTop = 0;
   document.getElementById("imageModal").scrollLeft = 0;
 });
-const buttonContainer = document.createElement("div");
-buttonContainer.className = `
-  flex 
-  flex-col 
-  sm:flex-row 
-  gap-4 
-  mt-4 
-  items-start 
-  sm:items-center
-`;
+
 function generateContent() {
   const userInput = document.getElementById('userInput').value.trim();
   const resultDiv = document.getElementById('result');
