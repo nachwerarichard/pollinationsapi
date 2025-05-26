@@ -65,7 +65,8 @@ function generateContent() {
       fontWeight: "600",
       marginTop: "15px",
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      transition: "background-color 0.3s ease"
+      transition: "background-color 0.3s ease",
+      paddingRight:"10px"
     });
 
     downloadBtn.onmouseover = () => {
