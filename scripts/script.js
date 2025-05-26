@@ -53,21 +53,20 @@ function generateContent() {
     };
 
     const downloadBtn = document.createElement("button");
-downloadBtn.textContent = "Download Image";
-downloadBtn.className = `
-  bg-indigo-600 
-  hover:bg-indigo-700 
-  text-white 
-  px-10
-  py-2.5 
-  rounded-lg 
-  cursor-pointer 
-  text-base 
-  font-semibold 
-  shadow-md 
-  transition-colors 
-  duration-300
-`;
+    downloadBtn.textContent = "Download Image";
+    Object.assign(downloadBtn.style, {
+      backgroundColor: "#4f46e5",
+      color: "#fff",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontSize: "16px",
+      fontWeight: "600",
+      marginTop: "15px",
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      transition: "background-color 0.3s ease"
+    });
 
     downloadBtn.onmouseover = () => {
       downloadBtn.style.backgroundColor = "#4338ca";
@@ -82,21 +81,21 @@ downloadBtn.className = `
       a.click();
     };
     const copyBtn = document.createElement("button");
-    copyBtn.textContent = "Copy to Clipboard";
-    copyBtn.className = `
-      bg-emerald-500 
-      hover:bg-emerald-600 
-      text-white 
-      px-10
-      py-2.5 
-      rounded-lg 
-      cursor-pointer 
-      text-base 
-      font-semibold 
-      shadow-md 
-      transition-colors 
-      duration-300
-    `;
+copyBtn.textContent = "Copy to Clipboard";
+Object.assign(copyBtn.style, {
+  backgroundColor: "#10b981", // Tailwind's emerald-500
+  color: "#fff",
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  fontSize: "16px",
+  fontWeight: "600",
+  marginTop: "10px",
+  marginLeft: "10px",
+  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  transition: "background-color 0.3s ease"
+});
 
 copyBtn.onmouseover = () => {
   copyBtn.style.backgroundColor = "#059669"; // emerald-600
