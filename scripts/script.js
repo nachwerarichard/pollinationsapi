@@ -114,9 +114,17 @@ copyBtn.onclick = async () => {
   }
 };
     resultDiv.innerHTML = '';
-    resultDiv.appendChild(croppedImg);
-    buttonContainer.appendChild(downloadBtn);
-    buttonContainer.appendChild(copyBtn);
+resultDiv.appendChild(croppedImg);
+
+// ✅ Prevent duplicate buttons
+buttonContainer.innerHTML = '';
+buttonContainer.appendChild(downloadBtn);
+buttonContainer.appendChild(copyBtn);
+
+resultDiv.appendChild(buttonContainer);
+
+   
+
     resultDiv.appendChild(buttonContainer); // Replace 'document.body' with your specific target element
     document.getElementById("btnText").textContent = "Create Image";
     generateBtn.disabled = false;
